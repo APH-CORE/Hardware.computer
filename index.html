@@ -8,7 +8,81 @@
   src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js">
 </script>
 
-<link rel="stylesheet" href="style.css">
+<style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #bdbdbd;
+}
+
+.wrapper {
+  max-width: 900px;
+  margin: 40px auto;
+  text-align: center;
+}
+
+.viewer-box {
+  background: #f4f4ef;
+  border-radius: 24px;
+  padding: 20px;
+}
+
+model-viewer {
+  width: 100%;
+  height: 420px;
+}
+
+/* BUTTONS */
+.buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin: 20px 0;
+}
+
+button {
+  padding: 10px 18px;
+  border-radius: 14px;
+  border: none;
+  background: #5c6cff;
+  color: white;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+button:hover {
+  background: #3f4cff;
+}
+
+button.active {
+  background: #00c8ff;
+  color: #000;
+}
+
+/* TEXT */
+#infoText {
+  max-width: 720px;
+  margin: auto;
+  background: rgba(255,255,255,0.85);
+  padding: 16px 20px;
+  border-radius: 16px;
+  font-size: 14px;
+  opacity: 0;
+  animation: fadeIn 0.6s forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+</style>
 </head>
 
 <body>
@@ -20,9 +94,11 @@
       id="pcModel"
       src="./pc.glb"
       camera-controls
+      auto-rotate
+      auto-rotate-delay="3000"
       interaction-prompt="none"
-      min-camera-orbit="85deg 70deg 1.8m"
-      max-camera-orbit="95deg 80deg 2.6m"
+      min-camera-orbit="85deg 70deg 2.3m"
+      max-camera-orbit="95deg 80deg 3.6m"
       transition-duration="900"
       shadow-intensity="1">
     </model-viewer>
@@ -39,11 +115,69 @@
   </div>
 
   <div id="infoText">
-    Klik & geser model untuk melihat komponen komputer
+    Putar, zoom, atau klik tombol untuk melihat komponen komputer
   </div>
 
 </div>
 
-<script src="script.js"></script>
+<script>
+const model = document.getElementById("pcModel");
+const text = document.getElementById("infoText");
+
+const SIDE_ANGLE = "90deg 75deg";
+
+/* UI */
+function resetButtons() {
+  document.querySelectorAll("button").forEach(b => b.classList.remove("active"));
+}
+
+function showText(msg) {
+  text.style.animation = "none";
+  text.offsetHeight;
+  text.style.animation = null;
+  text.innerText = msg;
+}
+
+/* ZOOM (LEBIH JAUH & STABIL) */
+function zoom(radius, msg, btn) {
+  resetButtons();
+  btn.classList.add("active");
+
+  model.cameraOrbit = `${SIDE_ANGLE} ${radius}m`;
+  model.fieldOfView = "40deg"; // lebih wide, nggak terlalu dekat
+
+  showText(msg);
+}
+
+/* KOMPONEN */
+function focusCPU(btn) {
+  zoom(2.6, "CPU (Central Processing Unit) adalah otak komputer yang memproses semua instruksi.", btn);
+}
+
+function focusGPU(btn) {
+  zoom(2.7, "GPU atau VGA berfungsi mengolah grafis dan tampilan visual.", btn);
+}
+
+function focusRAM(btn) {
+  zoom(2.8, "RAM menyimpan data sementara agar sistem berjalan cepat.", btn);
+}
+
+function focusMB(btn) {
+  zoom(3.0, "Motherboard menghubungkan seluruh komponen komputer.", btn);
+}
+
+function focusFan(btn) {
+  zoom(3.1, "Fan menjaga suhu komponen agar tetap stabil.", btn);
+}
+
+function focusStorage(btn) {
+  zoom(3.2, "Storage menyimpan sistem operasi dan data.", btn);
+}
+
+function focusPSU(btn) {
+  zoom(3.3, "PSU menyuplai daya listrik ke seluruh komponen.", btn);
+}
+</script>
+
 </body>
 </html>
