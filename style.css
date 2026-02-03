@@ -16,29 +16,31 @@ body {
 
 .hotspot {
   position: absolute;
-  width: 25px;
-  height: 25px;
-  border-radius: 50%;
-  background: red;
-  opacity: 0.7;
-  border: none;
+  width: 40px;
+  height: 40px;
+  background: transparent;
+  border: 2px solid rgba(0,0,0,0);
   cursor: pointer;
+}
+
+.hotspot:hover {
+  border-color: red;
 }
 
 /* POSISI TITIK (SESUIKAN GAMBAR KAMU) */
 .cpu {
-  top: 120px;
-  left: 220px;
+  top: 110px;
+  left: 210px;
 }
 
 .gpu {
-  top: 230px;
-  left: 260px;
+  top: 260px;
+  left: 200px;
 }
 
 .ram {
   top: 160px;
-  left: 180px;
+  left: 260px;
 }
 
 #info {
