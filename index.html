@@ -15,24 +15,15 @@
 <p>Putar model 3D, lalu klik tombol di bawah.</p>
 
 <!-- MODEL 3D -->
-<div class="viewer">
+<div class="viewer-container">
+
   <model-viewer
+    id="pcModel"
     src="pc.glb"
-    alt="PC 3D"
-    auto-rotate
-    camera-controls>
+    camera-controls
+    transition-duration="800">
   </model-viewer>
+
+  <div id="infoText">Klik CPU / GPU</div>
+
 </div>
-
-<!-- TOMBOL -->
-<div class="controls">
-  <button onclick="showInfo('cpu')">CPU</button>
-  <button onclick="showInfo('gpu')">GPU</button>
-  <button onclick="showInfo('ram')">RAM</button>
-</div>
-
-<!-- INFO -->
-<div id="info"></div>
-
-<script src="script.js"></script>
-</body>
