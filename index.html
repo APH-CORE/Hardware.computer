@@ -4,7 +4,6 @@
 <meta charset="UTF-8">
 <title>Hardware Komputer 3D</title>
 
-<!-- MODEL VIEWER -->
 <script type="module"
   src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js">
 </script>
@@ -21,11 +20,9 @@
       id="pcModel"
       src="./pc.glb"
       camera-controls
-      auto-rotate="false"
-      disable-pan
-      min-camera-orbit="90deg 75deg 1.4m"
-      max-camera-orbit="90deg 75deg 2.6m"
       interaction-prompt="none"
+      min-camera-orbit="85deg 70deg 1.8m"
+      max-camera-orbit="95deg 80deg 2.6m"
       transition-duration="900"
       shadow-intensity="1">
     </model-viewer>
@@ -42,7 +39,7 @@
   </div>
 
   <div id="infoText">
-    Klik area 3D atau tombol untuk melihat penjelasan komponen
+    Klik & geser model untuk melihat komponen komputer
   </div>
 
 </div>
