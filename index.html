@@ -1,38 +1,45 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <title>Web Hardware 3D</title>
+<meta charset="UTF-8">
+<title>Hardware Komputer 3D</title>
 
-  <!-- MODEL VIEWER -->
-  <script type="module"
-    src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js">
-  </script>
+<script type="module"
+  src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js">
+</script>
 
-  <link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<div class="viewer-container">
+<div class="viewer-wrapper">
 
-  <model-viewer
-    id="pcModel"
-    src="pc.glb"
-    camera-controls
-    transition-duration="800"
-    shadow-intensity="1">
-  </model-viewer>
-
-  <div id="infoText">
-    Klik CPU atau GPU untuk melihat detail
+  <div class="viewer-container">
+    <model-viewer
+      id="pcModel"
+      src="pc.glb"
+      camera-controls
+      disable-pan
+      transition-duration="900"
+      shadow-intensity="1">
+    </model-viewer>
   </div>
 
-</div>
+  <div class="buttons">
+    <button onclick="focusCPU(this)">CPU</button>
+    <button onclick="focusGPU(this)">GPU</button>
+    <button onclick="focusRAM(this)">RAM</button>
+    <button onclick="focusMB(this)">Motherboard</button>
+    <button onclick="focusFan(this)">Fan</button>
+    <button onclick="focusStorage(this)">Storage</button>
+    <button onclick="focusPSU(this)">PSU</button>
+  </div>
 
-<div class="buttons">
-  <button id="btnCPU">CPU</button>
-  <button id="btnGPU">GPU</button>
+  <div id="infoText">
+    Pilih komponen untuk melihat penjelasan
+  </div>
+
 </div>
 
 <script src="script.js"></script>
