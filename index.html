@@ -11,16 +11,33 @@
 <body>
 
 <h1>Hardware Komputer</h1>
-<p>Klik bagian pada gambar PC untuk melihat penjelasan.</p>
+<p>Putar model 3D, lalu klik tombol untuk melihat penjelasan.</p>
 
-<div class="pc-container">
- <model-viewer 
-  src="pc.glb"
-  alt="PC 3D"
-  auto-rotate
-  camera-controls
-  style="width: 600px; height: 400px;">
-</model-viewer>
+<div class="container">
+
+  <!-- MODEL 3D -->
+  <div class="viewer">
+    <model-viewer
+      src="pc.glb"
+      alt="PC 3D"
+      auto-rotate
+      camera-controls>
+    </model-viewer>
+  </div>
+
+  <!-- TOMBOL -->
+  <div class="controls">
+    <button onclick="showInfo('cpu')">CPU</button>
+    <button onclick="showInfo('gpu')">GPU</button>
+    <button onclick="showInfo('ram')">RAM</button>
+  </div>
+
+</div>
+
+<div id="info"></div>
+
+<script src="script.js"></script>
+</body>
 
   <!-- TITIK KLIK -->
   <button class="hotspot cpu" onclick="showInfo('cpu')"></button>
