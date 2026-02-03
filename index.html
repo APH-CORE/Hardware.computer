@@ -36,3 +36,20 @@
 
 <script src="script.js"></script>
 </body>
+
+  <script type="module"
+  src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js">
+</script>
+
+<model-viewer
+  id="pcModel"
+  src="pc.glb"
+  camera-controls
+  style="width:100%; height:400px;"
+  transition-duration="800">
+</model-viewer>
+
+<div class="buttons">
+  <button onclick="focusCPU()">CPU</button>
+  <button onclick="focusGPU()">GPU</button>
+</div>
