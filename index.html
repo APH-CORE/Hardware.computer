@@ -5,13 +5,22 @@
   <title>Hardware Komputer</title>
   <link rel="stylesheet" href="style.css">
 </head>
+  <script type="module"
+  src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js">
+</script>
 <body>
 
 <h1>Hardware Komputer</h1>
 <p>Klik bagian pada gambar PC untuk melihat penjelasan.</p>
 
 <div class="pc-container">
-  <img src="pc.png" alt="PC" class="pc-image">
+ <model-viewer 
+  src="pc.glb"
+  alt="PC 3D"
+  auto-rotate
+  camera-controls
+  style="width: 600px; height: 400px;">
+</model-viewer>
 
   <!-- TITIK KLIK -->
   <button class="hotspot cpu" onclick="showInfo('cpu')"></button>
