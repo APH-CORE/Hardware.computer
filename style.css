@@ -26,7 +26,8 @@ body {
 }
 
 .hotspot:hover {
-  border-color: blue;
+  background: rgba(255, 0, 0, 0.4);
+  transform: scale(1.1);
 }
 
 /* POSISI TITIK (SESUIKAN GAMBAR KAMU) */
