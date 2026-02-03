@@ -1,7 +1,7 @@
 body {
   margin: 0;
   font-family: Arial, sans-serif;
-  background: #bdbdbd; /* abu */
+  background: #bdbdbd;
 }
 
 .wrapper {
@@ -10,20 +10,17 @@ body {
   text-align: center;
 }
 
-/* BOX PC */
 .viewer-box {
-  background: #f4f4ef; /* broken white */
+  background: #f4f4ef;
   border-radius: 24px;
   padding: 20px;
 }
 
-/* MODEL */
 model-viewer {
   width: 100%;
   height: 420px;
 }
 
-/* BUTTONS */
 .buttons {
   display: flex;
   flex-wrap: wrap;
@@ -51,7 +48,6 @@ button.active {
   color: #000;
 }
 
-/* TEXT INFO */
 #infoText {
   max-width: 720px;
   margin: auto;
@@ -63,7 +59,6 @@ button.active {
   animation: fadeIn 0.6s forwards;
 }
 
-/* FADE IN */
 @keyframes fadeIn {
   from {
     opacity: 0;
