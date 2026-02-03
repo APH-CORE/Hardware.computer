@@ -22,6 +22,20 @@ function showInfo(hardware) {
       "<h2>RAM</h2><p>RAM menyimpan data sementara agar aplikasi berjalan lebih cepat.</p>";
   }
 
+  <script>
+const model = document.getElementById("pcModel");
+
+function focusCPU() {
+  model.cameraOrbit = "30deg 70deg 1.5m";
+  model.fieldOfView = "30deg";
+}
+
+function focusGPU() {
+  model.cameraOrbit = "-40deg 80deg 1.7m";
+  model.fieldOfView = "30deg";
+}
+</script>
+  
   // animasi info (kalau kamu pakai yang fade)
   info.classList.remove("show");
   setTimeout(() => {
