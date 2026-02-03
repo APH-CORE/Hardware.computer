@@ -2,14 +2,43 @@ body {
   font-family: Arial, sans-serif;
   background: #f4f6f8;
   text-align: center;
-  padding: 40px;
+  padding: 30px;
 }
 
-.card button {
-  margin: 10px;
-  padding: 12px 20px;
-  font-size: 16px;
+.pc-container {
+  position: relative;
+  display: inline-block;
+}
+
+.pc-image {
+  width: 500px;
+}
+
+.hotspot {
+  position: absolute;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background: red;
+  opacity: 0.7;
+  border: none;
   cursor: pointer;
+}
+
+/* POSISI TITIK (SESUIKAN GAMBAR KAMU) */
+.cpu {
+  top: 120px;
+  left: 220px;
+}
+
+.gpu {
+  top: 230px;
+  left: 260px;
+}
+
+.ram {
+  top: 160px;
+  left: 180px;
 }
 
 #info {
