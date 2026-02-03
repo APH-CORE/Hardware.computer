@@ -2,19 +2,17 @@ body {
   margin: 0;
   font-family: Arial, sans-serif;
   background: #bdbdbd; /* abu */
-  color: #222;
 }
 
-/* WRAPPER */
-.viewer-wrapper {
+.wrapper {
   max-width: 900px;
   margin: 40px auto;
   text-align: center;
 }
 
-/* PC CONTAINER */
-.viewer-container {
-  background: #f5f5f0; /* broken white */
+/* BOX PC */
+.viewer-box {
+  background: #f4f4ef; /* broken white */
   border-radius: 24px;
   padding: 20px;
 }
@@ -38,26 +36,26 @@ button {
   padding: 10px 18px;
   border-radius: 14px;
   border: none;
-  cursor: pointer;
-  background: #6c7cff;
+  background: #5c6cff;
   color: white;
+  cursor: pointer;
   transition: 0.3s;
 }
 
 button:hover {
-  background: #4e5cff;
+  background: #3f4cff;
 }
 
 button.active {
   background: #00c8ff;
-  color: black;
+  color: #000;
 }
 
 /* TEXT INFO */
 #infoText {
-  max-width: 700px;
+  max-width: 720px;
   margin: auto;
-  background: rgba(255,255,255,0.8);
+  background: rgba(255,255,255,0.85);
   padding: 16px 20px;
   border-radius: 16px;
   font-size: 14px;
@@ -65,11 +63,11 @@ button.active {
   animation: fadeIn 0.6s forwards;
 }
 
-/* FADE ANIMATION */
+/* FADE IN */
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(10px);
+    transform: translateY(12px);
   }
   to {
     opacity: 1;
