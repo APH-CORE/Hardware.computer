@@ -6,19 +6,30 @@ body {
 }
 
 /* MODEL 3D CENTER & BESAR */
-.viewer {
-  display: flex;
-  justify-content: center;
-  margin-top: 20px;
+.viewer-container {
+  position: relative;
+  width: 100%;
+  height: 400px;
 }
 
-.viewer model-viewer {
-  width: 80vw;        /* BESAR */
-  max-width: 800px;  /* batas maksimal */
-  height: 450px;
-  background: white;
-  border-radius: 12px;
+model-viewer {
+  width: 100%;
+  height: 100%;
 }
+
+#infoText {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0,0,0,0.6);
+  color: white;
+  padding: 10px 16px;
+  border-radius: 12px;
+  z-index: 10;
+  font-size: 14px;
+}
+
 
 /* TOMBOL DI BAWAH */
 .controls {
