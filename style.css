@@ -5,36 +5,39 @@ body {
   padding: 30px;
 }
 
-.container {
+/* MODEL 3D CENTER & BESAR */
+.viewer {
   display: flex;
   justify-content: center;
-  align-items: center;
-  gap: 30px;
   margin-top: 20px;
 }
 
 .viewer model-viewer {
-  width: 500px;
-  height: 400px;
-  background: #fff;
-  border-radius: 10px;
+  width: 80vw;        /* BESAR */
+  max-width: 800px;  /* batas maksimal */
+  height: 450px;
+  background: white;
+  border-radius: 12px;
 }
 
+/* TOMBOL DI BAWAH */
 .controls {
+  margin-top: 20px;
   display: flex;
-  flex-direction: column;
-  gap: 15px;
+  justify-content: center;
+  gap: 20px;
 }
 
 .controls button {
-  padding: 12px 20px;
+  padding: 12px 24px;
   font-size: 16px;
   cursor: pointer;
 }
 
+/* INFO BOX */
 #info {
   margin: 30px auto 0;
-  width: 60%;
+  width: 70%;
   background: white;
   padding: 20px;
-  border-radius: 10px;
+  border-radius: 12px;
