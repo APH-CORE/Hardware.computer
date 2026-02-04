@@ -1,131 +1,38 @@
 <!DOCTYPE html>
-<html lang="id">
+<html>
 <head>
   <meta charset="UTF-8">
-  <title>PC 3D Basic</title>
-
-  <!-- THREE.JS STABIL -->
+  <title>TEST</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r152/three.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r152/examples/js/controls/OrbitControls.js"></script>
-
   <style>
-    body {
-      margin: 0;
-      background: #bdbdbd; /* abu */
-      font-family: Arial, sans-serif;
-    }
-
-    .viewer {
-      width: 100%;
-      height: 500px;
-      background: #f5f5f0; /* broken white */
-    }
+    body { margin: 0; background: black; }
+    #viewer { width: 100vw; height: 100vh; background: red; }
   </style>
 </head>
 <body>
 
-<div class="viewer" id="viewer"></div>
+<div id="viewer"></div>
 
 <script>
-  const container = document.getElementById("viewer");
+  alert("JS HIDUP");
 
-  /* SCENE */
   const scene = new THREE.Scene();
+  scene.background = new THREE.Color(0x00ff00);
 
-  /* CAMERA – SAMPING */
-  const camera = new THREE.PerspectiveCamera(
-    50,
-    container.clientWidth / container.clientHeight,
-    0.1,
-    100
+  const camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 100);
+  camera.position.z = 5;
+
+  const renderer = new THREE.WebGLRenderer();
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  document.getElementById("viewer").appendChild(renderer.domElement);
+
+  const cube = new THREE.Mesh(
+    new THREE.BoxGeometry(),
+    new THREE.MeshBasicMaterial({ color: 0x0000ff })
   );
-  camera.position.set(6, 2, 0);
+  scene.add(cube);
 
-  /* RENDERER */
-  const renderer = new THREE.WebGLRenderer({ antialias: true });
-  renderer.setSize(container.clientWidth, container.clientHeight);
-  container.appendChild(renderer.domElement);
-
-  /* CONTROLS (MANUAL ROTATE AJA) */
-  const controls = new THREE.OrbitControls(camera, renderer.domElement);
-  controls.target.set(0, 2, 0);
-  controls.enableZoom = true;
-  controls.enablePan = true;
-  controls.enableRotate = true;
-  controls.update();
-
-  /* LIGHTING */
-  scene.add(new THREE.AmbientLight(0xffffff, 0.7));
-
-  const keyLight = new THREE.DirectionalLight(0xffffff, 0.8);
-  keyLight.position.set(5, 5, 5);
-  scene.add(keyLight);
-
-  const fillLight = new THREE.DirectionalLight(0xffffff, 0.5);
-  fillLight.position.set(-5, 3, 0);
-  scene.add(fillLight);
-
-  /* ===== PC MODEL (SAMPING) ===== */
-  const pc = new THREE.Group();
-  scene.add(pc);
-
-  /* CASE */
-  const caseBody = new THREE.Mesh(
-    new THREE.BoxGeometry(1, 4, 2),
-    new THREE.MeshStandardMaterial({
-      color: 0xe0e0e0,   // broken white
-      metalness: 0.1,
-      roughness: 0.6
-    })
-  );
-  caseBody.position.y = 2;
-  pc.add(caseBody);
-
-  /* MOTHERBOARD */
-  const motherboard = new THREE.Mesh(
-    new THREE.BoxGeometry(0.05, 3, 1.8),
-    new THREE.MeshStandardMaterial({ color: 0x263238 })
-  );
-  motherboard.position.set(0.55, 2, 0);
-  pc.add(motherboard);
-
-  /* CPU */
-  const cpu = new THREE.Mesh(
-    new THREE.BoxGeometry(0.2, 0.2, 0.2),
-    new THREE.MeshStandardMaterial({ color: 0xff9800 })
-  );
-  cpu.position.set(0.58, 2.6, 0);
-  pc.add(cpu);
-
-  /* GPU */
-  const gpu = new THREE.Mesh(
-    new THREE.BoxGeometry(0.9, 0.25, 0.4),
-    new THREE.MeshStandardMaterial({ color: 0x2e7d32 })
-  );
-  gpu.position.set(0.9, 1.4, 0);
-  pc.add(gpu);
-
-  /* PSU */
-  const psu = new THREE.Mesh(
-    new THREE.BoxGeometry(0.7, 0.6, 0.6),
-    new THREE.MeshStandardMaterial({ color: 0x212121 })
-  );
-  psu.position.set(0.9, 0.5, 0);
-  pc.add(psu);
-
-  /* RENDER LOOP */
-  function animate() {
-    requestAnimationFrame(animate);
-    renderer.render(scene, camera);
-  }
-  animate();
-
-  /* RESIZE FIX */
-  window.addEventListener("resize", () => {
-    camera.aspect = container.clientWidth / container.clientHeight;
-    camera.updateProjectionMatrix();
-    renderer.setSize(container.clientWidth, container.clientHeight);
-  });
+  renderer.render(scene, camera);
 </script>
 
 </body>
