@@ -1,32 +1,108 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Layout Final</title>
-
+  <meta charset="UTF-8" />
+  <title>PC Side View</title>
   <style>
     body {
       margin: 0;
-      background: #bdbdbd; /* abu */
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      font-family: Arial, sans-serif;
+      overflow: hidden;
+      background: #bfbfbf; /* abu-abu */
     }
-
-    .box {
-      width: 600px;
-      height: 400px;
-      background: #f5f5f0; /* putih / broken white */
-      border-radius: 12px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    canvas {
+      display: block;
     }
   </style>
 </head>
 <body>
 
-  <div class="box"></div>
+<script type="module">
+import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.158/build/three.module.js";
+import { OrbitControls } from "https://cdn.jsdelivr.net/npm/three@0.158/examples/jsm/controls/OrbitControls.js";
+
+let scene, camera, renderer, controls;
+let pcGroup;
+let autoRotate = true; // 🔁 ON / OFF
+
+init();
+animate();
+
+function init() {
+  scene = new THREE.Scene();
+  scene.background = new THREE.Color(0xbfbfbf);
+
+  // CAMERA – posisi samping 90°
+  camera = new THREE.PerspectiveCamera(
+    45,
+    window.innerWidth / window.innerHeight,
+    0.1,
+    100
+  );
+  camera.position.set(5, 2, 0); // SAMPING
+  camera.lookAt(0, 1, 0);
+
+  renderer = new THREE.WebGLRenderer({ antialias: true });
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  document.body.appendChild(renderer.domElement);
+
+  // LIGHT
+  const light1 = new THREE.DirectionalLight(0xffffff, 1);
+  light1.position.set(5, 10, 5);
+  scene.add(light1);
+
+  const ambient = new THREE.AmbientLight(0xffffff, 0.6);
+  scene.add(ambient);
+
+  // ORBIT CONTROLS (aman & pelan)
+  controls = new OrbitControls(camera, renderer.domElement);
+  controls.enableRotate = true;
+  controls.enableZoom = false;
+  controls.enablePan = false;
+  controls.rotateSpeed = 0.3;
+  controls.target.set(0, 1, 0);
+  controls.update();
+
+  // PC GROUP (dummy kotak putih = PC)
+  pcGroup = new THREE.Group();
+
+  const pcMaterial = new THREE.MeshStandardMaterial({ color: 0xffffff });
+  const pcMesh = new THREE.Mesh(
+    new THREE.BoxGeometry(1.2, 2, 0.5),
+    pcMaterial
+  );
+  pcMesh.position.y = 1;
+  pcGroup.add(pcMesh);
+
+  scene.add(pcGroup);
+
+  window.addEventListener("resize", onWindowResize);
+}
+
+// 🔁 AUTO ROTATE SUPER HALUS
+function animate() {
+  requestAnimationFrame(animate);
+
+  if (autoRotate) {
+    pcGroup.rotation.y += 0.0003; // 🔥 HALUS BANGET
+  }
+
+  renderer.render(scene, camera);
+}
+
+function onWindowResize() {
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(window.innerWidth, window.innerHeight);
+}
+
+// OPTIONAL: toggle auto rotate pakai keyboard (R)
+window.addEventListener("keydown", (e) => {
+  if (e.key.toLowerCase() === "r") {
+    autoRotate = !autoRotate;
+    console.log("Auto Rotate:", autoRotate);
+  }
+});
+</script>
 
 </body>
 </html>
