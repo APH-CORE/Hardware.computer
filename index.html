@@ -40,8 +40,11 @@
   <button id="toggle">Rotate ON</button>
 </div>
 
-<!-- THREE JS (PALING AMAN) -->
+<!-- THREE JS -->
 <script src="https://cdn.jsdelivr.net/npm/three@0.158.0/build/three.min.js"></script>
+
+<!-- GLTF LOADER -->
+<script src="https://cdn.jsdelivr.net/npm/three@0.158.0/examples/js/loaders/GLTFLoader.js"></script>
 
 <script>
   // ===== SCENE =====
@@ -55,7 +58,7 @@
     0.1,
     100
   );
-  camera.position.set(5, 2, 0);
+  camera.position.set(4, 2, 0);
   camera.lookAt(0, 1, 0);
 
   // ===== RENDERER =====
@@ -63,7 +66,7 @@
   renderer.setSize(window.innerWidth, window.innerHeight);
   document.body.appendChild(renderer.domElement);
 
-  // ===== LIGHTING (DISPLAY STYLE) =====
+  // ===== LIGHTING =====
   const keyLight = new THREE.DirectionalLight(0xffffff, 1.2);
   keyLight.position.set(4, 6, 2);
   scene.add(keyLight);
@@ -72,18 +75,25 @@
   fillLight.position.set(-4, 3, -2);
   scene.add(fillLight);
 
-  const ambient = new THREE.AmbientLight(0xffffff, 0.4);
-  scene.add(ambient);
+  scene.add(new THREE.AmbientLight(0xffffff, 0.4));
 
-  // ===== OBJECT (PC CASE) =====
-  const geometry = new THREE.BoxGeometry(1.2, 2, 0.5);
-  const material = new THREE.MeshStandardMaterial({
-    color: 0xf5f5f5   // broken white
-  });
+  // ===== LOAD PC.GLB =====
+  let pcModel;
 
-  const pc = new THREE.Mesh(geometry, material);
-  pc.position.y = 1;
-  scene.add(pc);
+  const loader = new THREE.GLTFLoader();
+  loader.load(
+    "pc.glb", // pastikan nama sama
+    function (gltf) {
+      pcModel = gltf.scene;
+      pcModel.scale.set(1, 1, 1);
+      pcModel.position.set(0, 0, 0);
+      scene.add(pcModel);
+    },
+    undefined,
+    function (error) {
+      console.error("GLB error:", error);
+    }
+  );
 
   // ===== ROTATE CONTROL =====
   let autoRotate = true;
@@ -98,8 +108,8 @@
   function animate() {
     requestAnimationFrame(animate);
 
-    if (autoRotate) {
-      pc.rotation.y += 0.0015; // super halus
+    if (pcModel && autoRotate) {
+      pcModel.rotation.y += 0.0015; // super halus
     }
 
     renderer.render(scene, camera);
