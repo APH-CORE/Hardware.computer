@@ -1,129 +1,23 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
   <meta charset="UTF-8">
-  <title>PC 3D Viewer</title>
-  <style>
-    body {
-      margin: 0;
-      overflow: hidden;
-      background: #bdbdbd; /* abu */
-      font-family: Arial, sans-serif;
-    }
-
-    #ui {
-      position: fixed;
-      bottom: 20px;
-      width: 100%;
-      display: flex;
-      justify-content: center;
-    }
-
-    button {
-      padding: 10px 18px;
-      font-size: 14px;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      background: #222;
-      color: white;
-    }
-
-    button:hover {
-      background: #444;
-    }
-  </style>
+  <title>Hardware Komputer</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<div id="ui">
-  <button id="toggle">Rotate ON</button>
-</div>
+  <h1>Hardware Komputer</h1>
+  <p>Klik tombol di bawah untuk melihat pengertian tiap hardware.</p>
 
-<!-- THREE JS -->
-<script src="https://cdn.jsdelivr.net/npm/three@0.158.0/build/three.min.js"></script>
+  <div class="card">
+    <button onclick="showInfo('cpu')">CPU</button>
+    <button onclick="showInfo('gpu')">GPU</button>
+    <button onclick="showInfo('ram')">RAM</button>
+  </div>
 
-<!-- GLTF LOADER -->
-<script src="https://cdn.jsdelivr.net/npm/three@0.158.0/examples/js/loaders/GLTFLoader.js"></script>
+  <div id="info"></div>
 
-<script>
-  // ===== SCENE =====
-  const scene = new THREE.Scene();
-  scene.background = new THREE.Color(0xbdbdbd);
-
-  // ===== CAMERA (samping PC) =====
-  const camera = new THREE.PerspectiveCamera(
-    45,
-    window.innerWidth / window.innerHeight,
-    0.1,
-    100
-  );
-  camera.position.set(4, 2, 0);
-  camera.lookAt(0, 1, 0);
-
-  // ===== RENDERER =====
-  const renderer = new THREE.WebGLRenderer({ antialias: true });
-  renderer.setSize(window.innerWidth, window.innerHeight);
-  document.body.appendChild(renderer.domElement);
-
-  // ===== LIGHTING =====
-  const keyLight = new THREE.DirectionalLight(0xffffff, 1.2);
-  keyLight.position.set(4, 6, 2);
-  scene.add(keyLight);
-
-  const fillLight = new THREE.DirectionalLight(0xffffff, 0.6);
-  fillLight.position.set(-4, 3, -2);
-  scene.add(fillLight);
-
-  scene.add(new THREE.AmbientLight(0xffffff, 0.4));
-
-  // ===== LOAD PC.GLB =====
-  let pcModel;
-
-  const loader = new THREE.GLTFLoader();
-  loader.load(
-    "pc.glb", // pastikan nama sama
-    function (gltf) {
-      pcModel = gltf.scene;
-      pcModel.scale.set(1, 1, 1);
-      pcModel.position.set(0, 0, 0);
-      scene.add(pcModel);
-    },
-    undefined,
-    function (error) {
-      console.error("GLB error:", error);
-    }
-  );
-
-  // ===== ROTATE CONTROL =====
-  let autoRotate = true;
-  const button = document.getElementById("toggle");
-
-  button.onclick = () => {
-    autoRotate = !autoRotate;
-    button.innerText = autoRotate ? "Rotate ON" : "Rotate OFF";
-  };
-
-  // ===== ANIMATION =====
-  function animate() {
-    requestAnimationFrame(animate);
-
-    if (pcModel && autoRotate) {
-      pcModel.rotation.y += 0.0015; // super halus
-    }
-
-    renderer.render(scene, camera);
-  }
-
-  animate();
-
-  // ===== RESPONSIVE =====
-  window.addEventListener("resize", () => {
-    camera.aspect = window.innerWidth / window.innerHeight;
-    camera.updateProjectionMatrix();
-    renderer.setSize(window.innerWidth, window.innerHeight);
-  });
-</script>
-
+  <script src="script.js"></script>
 </body>
 </html>
