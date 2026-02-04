@@ -1,107 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>PC Side View</title>
+  <meta charset="UTF-8">
+  <title>Three Test</title>
   <style>
-    body {
-      margin: 0;
-      overflow: hidden;
-      background: #bfbfbf; /* abu-abu */
-    }
-    canvas {
-      display: block;
-    }
+    body { margin: 0; overflow: hidden; background: #aaa; }
   </style>
 </head>
 <body>
 
-<script type="module">
-import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.158/build/three.module.js";
-import { OrbitControls } from "https://cdn.jsdelivr.net/npm/three@0.158/examples/jsm/controls/OrbitControls.js";
+<!-- THREE JS (NON MODULE, PALING AMAN) -->
+<script src="https://cdn.jsdelivr.net/npm/three@0.158.0/build/three.min.js"></script>
 
-let scene, camera, renderer, controls;
-let pcGroup;
-let autoRotate = true; // 🔁 ON / OFF
+<script>
+  // SCENE
+  const scene = new THREE.Scene();
+  scene.background = new THREE.Color(0xaaaaaa);
 
-init();
-animate();
-
-function init() {
-  scene = new THREE.Scene();
-  scene.background = new THREE.Color(0xbfbfbf);
-
-  // CAMERA – posisi samping 90°
-  camera = new THREE.PerspectiveCamera(
+  // CAMERA (samping)
+  const camera = new THREE.PerspectiveCamera(
     45,
     window.innerWidth / window.innerHeight,
     0.1,
     100
   );
-  camera.position.set(5, 2, 0); // SAMPING
+  camera.position.set(5, 2, 0);
   camera.lookAt(0, 1, 0);
 
-  renderer = new THREE.WebGLRenderer({ antialias: true });
+  // RENDERER
+  const renderer = new THREE.WebGLRenderer({ antialias: true });
   renderer.setSize(window.innerWidth, window.innerHeight);
   document.body.appendChild(renderer.domElement);
 
   // LIGHT
-  const light1 = new THREE.DirectionalLight(0xffffff, 1);
-  light1.position.set(5, 10, 5);
-  scene.add(light1);
+  const light = new THREE.DirectionalLight(0xffffff, 1);
+  light.position.set(5, 5, 5);
+  scene.add(light);
 
-  const ambient = new THREE.AmbientLight(0xffffff, 0.6);
-  scene.add(ambient);
+  scene.add(new THREE.AmbientLight(0xffffff, 0.5));
 
-  // ORBIT CONTROLS (aman & pelan)
-  controls = new OrbitControls(camera, renderer.domElement);
-  controls.enableRotate = true;
-  controls.enableZoom = false;
-  controls.enablePan = false;
-  controls.rotateSpeed = 0.3;
-  controls.target.set(0, 1, 0);
-  controls.update();
+  // OBJECT (PC dummy)
+  const geometry = new THREE.BoxGeometry(1.2, 2, 0.5);
+  const material = new THREE.MeshStandardMaterial({ color: 0xffffff });
+  const pc = new THREE.Mesh(geometry, material);
+  pc.position.y = 1;
+  scene.add(pc);
 
-  // PC GROUP (dummy kotak putih = PC)
-  pcGroup = new THREE.Group();
-
-  const pcMaterial = new THREE.MeshStandardMaterial({ color: 0xffffff });
-  const pcMesh = new THREE.Mesh(
-    new THREE.BoxGeometry(1.2, 2, 0.5),
-    pcMaterial
-  );
-  pcMesh.position.y = 1;
-  pcGroup.add(pcMesh);
-
-  scene.add(pcGroup);
-
-  window.addEventListener("resize", onWindowResize);
-}
-
-// 🔁 AUTO ROTATE SUPER HALUS
-function animate() {
-  requestAnimationFrame(animate);
-
-  if (autoRotate) {
-    pcGroup.rotation.y += 0.0003; // 🔥 HALUS BANGET
+  // ANIMATE (rotate super halus)
+  function animate() {
+    requestAnimationFrame(animate);
+    pc.rotation.y += 0.002;
+    renderer.render(scene, camera);
   }
 
-  renderer.render(scene, camera);
-}
-
-function onWindowResize() {
-  camera.aspect = window.innerWidth / window.innerHeight;
-  camera.updateProjectionMatrix();
-  renderer.setSize(window.innerWidth, window.innerHeight);
-}
-
-// OPTIONAL: toggle auto rotate pakai keyboard (R)
-window.addEventListener("keydown", (e) => {
-  if (e.key.toLowerCase() === "r") {
-    autoRotate = !autoRotate;
-    console.log("Auto Rotate:", autoRotate);
-  }
-});
+  animate();
 </script>
 
 </body>
