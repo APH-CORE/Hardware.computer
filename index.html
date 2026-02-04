@@ -2,66 +2,31 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8">
-  <title>Three.js FIX FINAL</title>
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r152/three.min.js"></script>
+  <title>Layout Final</title>
 
   <style>
     body {
       margin: 0;
-      background: #222;
+      background: #bdbdbd; /* abu */
       display: flex;
       justify-content: center;
       align-items: center;
       height: 100vh;
+      font-family: Arial, sans-serif;
     }
 
-    #viewer {
+    .box {
       width: 600px;
       height: 400px;
-      background: #f5f5f0;
-    }
-
-    canvas {
-      display: block;
+      background: #f5f5f0; /* putih / broken white */
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
     }
   </style>
 </head>
 <body>
 
-<div id="viewer"></div>
-
-<script>
-  const container = document.getElementById("viewer");
-
-  const scene = new THREE.Scene();
-  scene.background = new THREE.Color(0xf5f5f0);
-
-  const camera = new THREE.PerspectiveCamera(
-    60,
-    container.clientWidth / container.clientHeight,
-    0.1,
-    100
-  );
-  camera.position.z = 5;
-
-  const renderer = new THREE.WebGLRenderer({ antialias: true });
-  renderer.setSize(container.clientWidth, container.clientHeight);
-  renderer.setPixelRatio(window.devicePixelRatio);
-  container.appendChild(renderer.domElement);
-
-  const geometry = new THREE.BoxGeometry();
-  const material = new THREE.MeshBasicMaterial({ color: 0x2196f3 });
-  const cube = new THREE.Mesh(geometry, material);
-  scene.add(cube);
-
-  function animate() {
-    requestAnimationFrame(animate);
-    cube.rotation.y += 0.01;
-    renderer.render(scene, camera);
-  }
-  animate();
-</script>
+  <div class="box"></div>
 
 </body>
 </html>
