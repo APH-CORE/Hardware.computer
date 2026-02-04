@@ -1,38 +1,13 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset="UTF-8">
-  <title>TEST</title>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r152/three.min.js"></script>
-  <style>
-    body { margin: 0; background: black; }
-    #viewer { width: 100vw; height: 100vh; background: red; }
-  </style>
-</head>
-<body>
+<body style="margin:0">
 
-<div id="viewer"></div>
+<canvas id="c" width="400" height="400" style="background:blue"></canvas>
 
 <script>
-  alert("JS HIDUP");
-
-  const scene = new THREE.Scene();
-  scene.background = new THREE.Color(0x00ff00);
-
-  const camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 100);
-  camera.position.z = 5;
-
-  const renderer = new THREE.WebGLRenderer();
-  renderer.setSize(window.innerWidth, window.innerHeight);
-  document.getElementById("viewer").appendChild(renderer.domElement);
-
-  const cube = new THREE.Mesh(
-    new THREE.BoxGeometry(),
-    new THREE.MeshBasicMaterial({ color: 0x0000ff })
-  );
-  scene.add(cube);
-
-  renderer.render(scene, camera);
+  const ctx = document.getElementById("c").getContext("2d");
+  ctx.fillStyle = "yellow";
+  ctx.fillRect(100, 100, 200, 200);
 </script>
 
 </body>
