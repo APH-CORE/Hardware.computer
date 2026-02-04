@@ -1,20 +1,12 @@
-body {
-  font-family: Arial, sans-serif;
-  background: #f4f6f8;
-  text-align: center;
-  padding: 40px;
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background: #2b2b2b;
+  height: 100%;
 }
 
-.card button {
-  margin: 10px;
-  padding: 12px 20px;
-  font-size: 16px;
-  cursor: pointer;
-}
-
-#info {
-  margin-top: 30px;
-  background: white;
-  padding: 20px;
-  border-radius: 8px;
+#container {
+  width: 100vw;
+  height: 100vh;
 }
