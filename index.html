@@ -7,7 +7,7 @@
 <style>
   body {
     margin: 0;
-    background: #cfcfcf;
+    background: #cfcfcf; /* abu */
     font-family: Arial, sans-serif;
     text-align: center;
   }
@@ -30,7 +30,7 @@
 
   .buttons button {
     padding: 8px 16px;
-    margin: 0 5px;
+    margin: 0 6px;
     border-radius: 6px;
     border: 1px solid #999;
     cursor: pointer;
@@ -65,9 +65,11 @@
   <p>CPU adalah otak komputer yang memproses semua perintah.</p>
 </div>
 
-<!-- THREE JS -->
+<!-- ================= THREE JS ================= -->
 <script src="https://cdn.jsdelivr.net/npm/three@0.158.0/build/three.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/three@0.158.0/examples/js/loaders/GLTFLoader.js"></script>
+
+<!-- ✅ GLTF LOADER (FIXED CDN) -->
+<script src="https://unpkg.com/three@0.158.0/examples/js/loaders/GLTFLoader.js"></script>
 
 <script>
   // ===== SCENE =====
@@ -75,7 +77,12 @@
   scene.background = new THREE.Color(0xffffff);
 
   // ===== CAMERA =====
-  const camera = new THREE.PerspectiveCamera(45, 900 / 450, 0.1, 100);
+  const camera = new THREE.PerspectiveCamera(
+    45,
+    900 / 450,
+    0.1,
+    100
+  );
   camera.position.set(3, 2, 3);
   camera.lookAt(0, 1, 0);
 
@@ -86,28 +93,34 @@
 
   // ===== LIGHT =====
   scene.add(new THREE.AmbientLight(0xffffff, 0.6));
+
   const light = new THREE.DirectionalLight(0xffffff, 1);
   light.position.set(5, 5, 5);
   scene.add(light);
 
   // ===== LOAD PC.GLB =====
-  let pc;
+  let pcModel;
   const loader = new THREE.GLTFLoader();
+
   loader.load(
     "pc.glb",
-    (gltf) => {
-      pc = gltf.scene;
-      pc.scale.set(1, 1, 1);
-      scene.add(pc);
+    function (gltf) {
+      pcModel = gltf.scene;
+      pcModel.scale.set(1, 1, 1);
+      pcModel.position.set(0, 0, 0);
+      scene.add(pcModel);
+      console.log("PC loaded successfully");
     },
     undefined,
-    (err) => console.error("GLB ERROR", err)
+    function (error) {
+      console.error("GLB load error:", error);
+    }
   );
 
-  // ===== ROTATE HALUS =====
+  // ===== ANIMATION (ROTATE HALUS) =====
   function animate() {
     requestAnimationFrame(animate);
-    if (pc) pc.rotation.y += 0.002;
+    if (pcModel) pcModel.rotation.y += 0.002;
     renderer.render(scene, camera);
   }
   animate();
@@ -116,13 +129,16 @@
   function setInfo(type) {
     const info = document.getElementById("info");
     if (type === "cpu") {
-      info.innerHTML = "<h2>CPU</h2><p>CPU adalah otak komputer yang memproses semua perintah.</p>";
+      info.innerHTML =
+        "<h2>CPU</h2><p>CPU adalah otak komputer yang memproses semua perintah.</p>";
     }
     if (type === "gpu") {
-      info.innerHTML = "<h2>GPU</h2><p>GPU berfungsi mengolah grafis dan tampilan visual.</p>";
+      info.innerHTML =
+        "<h2>GPU</h2><p>GPU berfungsi mengolah grafis dan tampilan visual.</p>";
     }
     if (type === "ram") {
-      info.innerHTML = "<h2>RAM</h2><p>RAM menyimpan data sementara agar komputer bekerja lebih cepat.</p>";
+      info.innerHTML =
+        "<h2>RAM</h2><p>RAM menyimpan data sementara agar komputer bekerja lebih cepat.</p>";
     }
   }
 </script>
