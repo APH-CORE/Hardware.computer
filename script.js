@@ -1,32 +1,13 @@
-<script>
-  alert("JS HIDUP");
+function showInfo(hardware) {
+  let info = document.getElementById("info");
 
-  const container = document.getElementById("viewer");
-
-  const scene = new THREE.Scene();
-  scene.background = new THREE.Color(0x00ff00);
-
-  const camera = new THREE.PerspectiveCamera(
-    75,
-    container.clientWidth / container.clientHeight,
-    0.1,
-    100
-  );
-  camera.position.z = 5;
-
-  const renderer = new THREE.WebGLRenderer();
-  renderer.setSize(container.clientWidth, container.clientHeight);
-  container.appendChild(renderer.domElement);
-
-  const cube = new THREE.Mesh(
-    new THREE.BoxGeometry(),
-    new THREE.MeshBasicMaterial({ color: 0x0000ff })
-  );
-  scene.add(cube);
-
-  function animate() {
-    requestAnimationFrame(animate);
-    renderer.render(scene, camera);
+  if (hardware === "cpu") {
+    info.innerHTML = "<h2>CPU</h2><p>CPU adalah otak komputer yang mengolah semua perintah.</p>";
+  } 
+  else if (hardware === "gpu") {
+    info.innerHTML = "<h2>GPU</h2><p>GPU berfungsi untuk mengolah grafis dan tampilan visual.</p>";
+  } 
+  else if (hardware === "ram") {
+    info.innerHTML = "<h2>RAM</h2><p>RAM menyimpan data sementara agar komputer bekerja lebih cepat.</p>";
   }
-  animate();
-</script>
+}
